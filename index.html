@@ -66,10 +66,6 @@
             }
             //ELSE exit unity webview
         }
-        function OpenMultiplayer(link, val, token, bgm, sfx) {
-            window.location.href = link + '?auth=' + token + '&uuid=' + val + '&sett=' + bgm + '.' + sfx;
-        }
-
 
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
@@ -101,11 +97,11 @@
       //}
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/gamebox-tirador.loader.js";
+      var loaderUrl = buildUrl + "/build-single-tirador.loader.js";
       var config = {
-        dataUrl: buildUrl + "/gamebox-tirador.data",
-        frameworkUrl: buildUrl + "/gamebox-tirador.framework.js",
-        codeUrl: buildUrl + "/gamebox-tirador.wasm",
+        dataUrl: buildUrl + "/build-single-tirador.data",
+        frameworkUrl: buildUrl + "/build-single-tirador.framework.js",
+        codeUrl: buildUrl + "/build-single-tirador.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Multisys Technologies Corporation",
         productName: "Gamebox - Tirador",

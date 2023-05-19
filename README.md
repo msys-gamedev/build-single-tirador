@@ -7,3 +7,6 @@ v1.0.0
 v1.0.0
 -Initial build
 
+v1.0.1
+-Update API
+

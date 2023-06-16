@@ -11,7 +11,10 @@
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=450 height=900></canvas>
       <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
+        <div id="unity-logo-wrapper">
+          <div id="unity-logo"></div>
+        </div>
+        <div id="unity-fill"></div>
         <div id="unity-progress-bar-empty">
           <div id="unity-progress-bar-full"></div>
         </div>
@@ -48,23 +51,22 @@
                 var lob = urlParams.get('lobby') + '/?' + urlParams.get('partner_id');
                 window.location.href = lob + '&token=' + token;
             } else {
-               window.location.href = "ayos://Exit?code=" + val;
-               // if (isIOS()) {
-                   // try {
-                       // alert('[EXIT][IOS] Exiting with code: ' + val);
-                      //  window.location.href = "ayos://Exit?code=" + val;
-                  //  } catch (err) {
-                      //  alert('[EXIT][IOS] Cannot exit: ' + err.message);
-                    //}
-                //} else if (isAndroid()) {
-                    //try {
-                       // alert('[EXIT][ANDROID] Exiting with code: ' + val);
-                     //   window.location.href = "ayos://Exit?code=" + val;
-                     //   sendMessageToUnity("Exit=" + val);
-                  //  } catch (err) {
-                      //  console.log('[EXIT][ANDROID] Cannot exit: ' + err.message);
-                   // }
-               // }
+                window.location.href = "ayos://Exit?code=" + val;
+                // if (isIOS()) {
+                //     try {
+                //         alert('[EXIT][IOS] Exiting with code: ' + val);
+                //         window.location.href = "ayos://Exit?code=" + val;
+                //     } catch (err) {
+                //         alert('[EXIT][IOS] Cannot exit: ' + err.message);
+                //     }
+                // } else if (isAndroid()) {
+                //     try {
+                //         alert('[EXIT][ANDROID] Exiting with code: ' + val);
+                //         sendMessageToUnity("Exit=" + val);
+                //     } catch (err) {
+                //         console.log('[EXIT][ANDROID] Cannot exit: ' + err.message);
+                //     }
+                // }
             }
             //ELSE exit unity webview
         }
@@ -144,7 +146,7 @@
         canvas.style.height = "900px";
       }
 
-      loadingBar.style.display = "block";
+      loadingBar.style.display = "flex";
 
       var script = document.createElement("script");
       script.src = loaderUrl;
@@ -152,6 +154,7 @@
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
+          this.unityInstance = unityInstance;
             loadingBar.style.display = "none";
             var data = urlParams.get('auth') + "&" + urlParams.get('uuid');
             unityInstance.SendMessage("[Bridge]", "SetData", data);
@@ -196,6 +199,12 @@
         });
       };
       document.body.appendChild(script);
+      function MuteAudio(){
+        unityInstance.SendMessage("[Bridge]", "MuteAudio");
+      }
+      function UnMuteAudio(){
+        unityInstance.SendMessage("[Bridge]", "UnMuteAudio");
+      }
     </script>
   </body>
 </html>
